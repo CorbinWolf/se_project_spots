@@ -1,0 +1,134 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 0 16px;
+  background-color: #00000080;
+  visibility: hidden;
+}
+
+.modal_opened {
+  visibility: visible;
+}
+
+.modal__container {
+  max-width: 730px;
+  width: 100%;
+  padding: 32px 50px;
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.modal__title {
+  margin: 0;
+  color: #212121;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 500;
+}
+
+.modal__close-button {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-image: url(../images/close-icon.svg);
+  background-color: transparent;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  transition: 0.5s ease-in-out;
+}
+
+.modal__close-button:hover {
+  opacity: 1;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+  color: #212121b3;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.modal__input {
+  padding: 16px 12px;
+  border: 1px solid #21212166;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #212121;
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 500;
+  transition: 0.5s ease-in-out;
+}
+
+.modal__input:hover {
+  border: 1px solid #212121;
+}
+
+.modal__submit-button {
+  padding: 18px 58px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #212121;
+  color: #fcf5e5;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 500;
+  transition: 0.5s ease-in-out;
+}
+
+.modal__submit-button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 650px) {
+  .modal__container {
+    max-width: 730px;
+    width: 100%;
+    padding: 12px;
+  }
+
+  .modal__header {
+    margin-bottom: 24px;
+  }
+
+  .modal__title {
+    font-size: 20px;
+  }
+
+  .modal__label {
+    margin-bottom: 24px;
+  }
+
+  .modal__input {
+    font-size: 16px;
+  }
+
+  .modal__submit-button {
+    width: 100%;
+    padding: 18px 0;
+  }
+}

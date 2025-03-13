@@ -25,11 +25,11 @@
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
-            <button type="button" class="profile__edit-button">
+            <button class="profile__edit-button" type="button">
               Edit Profile
             </button>
           </div>
-          <button type="button" class="profile__add-button">New Post</button>
+          <button class="profile__add-button" type="button">New Post</button>
         </section>
         <section class="cards">
           <ul class="cards__list">
@@ -41,7 +41,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">Val Thorens</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
             <li>
@@ -52,7 +52,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">Restaurant terrace</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
             <li>
@@ -63,7 +63,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">An outdoor cafe</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
             <li>
@@ -74,7 +74,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">A very long bridge, over the forest</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
             <li>
@@ -85,7 +85,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">Tunnel with morning light</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
             <li>
@@ -96,7 +96,7 @@
               />
               <div class="card__content">
                 <h2 class="card__title">Mountain house</h2>
-                <button type="button" class="card__like-button"></button>
+                <button class="card__like-button" type="button"></button>
               </div>
             </li>
           </ul>
@@ -105,6 +105,36 @@
       <footer class="footer">
         <p class="footer__description">2023 &#169; Spots</p>
       </footer>
+      <div class="modal">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h2 class="modal__title">Edit profile</h2>
+            <button class="modal__close-button" type="submit"></button>
+          </div>
+          <form name="edit-profile">
+            <label class="modal__label" for="name">
+              Name
+              <input
+                class="modal__input"
+                type="text"
+                id="name"
+                placeholder="Type your name"
+              />
+            </label>
+            <label class="modal__label" for="description">
+              Description
+              <input
+                class="modal__input"
+                type="text"
+                id="description"
+                placeholder="Describe yourself"
+              />
+            </label>
+            <button class="modal__submit-button" type="submit">Save</button>
+          </form>
+        </div>
+      </div>
     </div>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>

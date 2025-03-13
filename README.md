@@ -20,7 +20,7 @@ This project is a social media site centered around adaptability using media que
 
 **Figma**
 
-[Here](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1) is a link to the Figma design.
+[Here](https://www.figma.com/design/GfXsvCPiLqITbrVOr7odwc/Sprint-4-Project%3A-Spots?node-id=0-1&p=f&t=k9AVKUTleCJIIYUN-1) is a link to the Figma design.
 
 **GitHub Pages**
 
