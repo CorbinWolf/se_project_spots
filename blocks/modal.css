@@ -60,6 +60,9 @@
   opacity: 1;
 }
 
+.modal__form {
+}
+
 .modal__label {
   display: flex;
   flex-direction: column;
