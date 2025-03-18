@@ -25,17 +25,39 @@ const initialCards = [
   },
 ];
 
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileOpenButton = document.querySelector(".profile__edit-button");
 const editProfileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
+const editProfileNameInput = editProfileModal.querySelector(
+  "#profile-name-input"
+);
+const editProfileDescriptionInput = editProfileModal.querySelector(
+  "#profile-description-input"
+);
+const editProfileSubmitButton = editProfileModal.querySelector(
+  ".modal__submit-button"
+);
 
 function openModal() {
+  editProfileCloseButton.classList.remove("modal__transition_off");
+  editProfileNameInput.classList.remove("modal__transition_off");
+  editProfileNameInput.value = profileName.textContent;
+  editProfileDescriptionInput.classList.remove("modal__transition_off");
+  editProfileDescriptionInput.value = profileDescription.textContent;
+  editProfileSubmitButton.classList.remove("modal__transition_off");
   editProfileModal.classList.add("modal_opened");
 }
 
 function closeModal() {
+  editProfileCloseButton.classList.add("modal__transition_off");
+  editProfileNameInput.classList.add("modal__transition_off");
+  editProfileDescriptionInput.classList.add("modal__transition_off");
+  editProfileSubmitButton.classList.add("modal__transition_off");
   editProfileModal.classList.remove("modal_opened");
 }
 

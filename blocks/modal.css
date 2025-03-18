@@ -107,6 +107,10 @@
   opacity: 0.8;
 }
 
+.modal__transition_off {
+  transition: none;
+}
+
 @media screen and (max-width: 650px) {
   .modal__container {
     max-width: 730px;
