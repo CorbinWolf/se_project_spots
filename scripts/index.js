@@ -24,6 +24,8 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+const cardTemplate = document.querySelector("#card-template");
+const cardsList = document.querySelector(".cards__list");
 
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
@@ -42,6 +44,20 @@ const editProfileDescriptionInput = editProfileModal.querySelector(
 const editProfileSubmitButton = editProfileModal.querySelector(
   ".modal__submit-button"
 );
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
+  const cardElementName = cardElement.querySelector(".card__title");
+  const cardElementLink = cardElement.querySelector(".card__image");
+
+  cardElementName.textContent = data.name;
+  cardElementLink.alt = data.name;
+  cardElementLink.src = data.link;
+
+  return cardElement;
+}
 
 function openModal() {
   editProfileCloseButton.classList.remove("modal__transition_off");
@@ -66,6 +82,11 @@ function submitModal(evt) {
   profileName.textContent = editProfileNameInput.value;
   profileDescription.textContent = editProfileDescriptionInput.value;
   closeModal();
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  const cardElement = getCardElement(initialCards[i]);
+  cardsList.prepend(cardElement);
 }
 
 editProfileOpenButton.addEventListener("click", openModal);
