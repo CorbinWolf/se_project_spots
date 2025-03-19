@@ -31,6 +31,7 @@ const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
 const editProfileOpenButton = document.querySelector(".profile__edit-button");
 
+const editProfileForm = document.forms["edit-profile"];
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
@@ -40,9 +41,6 @@ const editProfileNameInput = editProfileModal.querySelector(
 );
 const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
-);
-const editProfileSubmitButton = editProfileModal.querySelector(
-  ".modal__submit-button"
 );
 
 function getCardElement(data) {
@@ -59,21 +57,17 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function openModal() {
-  editProfileCloseButton.classList.remove("modal__transition_off");
-  editProfileNameInput.classList.remove("modal__transition_off");
+function fillProfileForm() {
   editProfileNameInput.value = profileName.textContent;
-  editProfileDescriptionInput.classList.remove("modal__transition_off");
   editProfileDescriptionInput.value = profileDescription.textContent;
-  editProfileSubmitButton.classList.remove("modal__transition_off");
+}
+
+function openModal() {
+  fillProfileForm();
   editProfileModal.classList.add("modal_opened");
 }
 
 function closeModal() {
-  editProfileCloseButton.classList.add("modal__transition_off");
-  editProfileNameInput.classList.add("modal__transition_off");
-  editProfileDescriptionInput.classList.add("modal__transition_off");
-  editProfileSubmitButton.classList.add("modal__transition_off");
   editProfileModal.classList.remove("modal_opened");
 }
 
@@ -91,4 +85,4 @@ for (let i = 0; i < initialCards.length; i++) {
 
 editProfileOpenButton.addEventListener("click", openModal);
 editProfileCloseButton.addEventListener("click", closeModal);
-editProfileModal.addEventListener("submit", submitModal);
+editProfileForm.addEventListener("submit", submitModal);
