@@ -82,7 +82,7 @@
   transition: 0.5s ease-in-out;
 }
 
-input::placeholder {
+.modal__input::placeholder {
   color: #2121214d;
 }
 
