@@ -23,6 +23,10 @@ const initialCards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
+  {
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -50,20 +54,27 @@ const addCardCloseButton = addCardModal.querySelector(".modal__close-button");
 const addCardLinkInput = addCardModal.querySelector("#add-card-link-input");
 const addCardNameInput = addCardModal.querySelector("#add-card-name-input");
 
+const previewModal = document.querySelector("#preview-modal");
+const previewImage = previewModal.querySelector(".modal__image");
+const previewCaption = previewModal.querySelector(".modal__caption");
+const previewCloseButton = previewModal.querySelector(
+  ".modal__close-button_type_preview"
+);
+
 function getCardElement(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
     .cloneNode(true);
-  const cardElementName = cardElement.querySelector(".card__title");
-  const cardElementLink = cardElement.querySelector(".card__image");
+  const cardElementTitle = cardElement.querySelector(".card__title");
+  const cardElementImage = cardElement.querySelector(".card__image");
   const cardElementLikeButton = cardElement.querySelector(".card__like-button");
   const cardElementDeleteButton = cardElement.querySelector(
     ".card__delete-button"
   );
 
-  cardElementName.textContent = data.name;
-  cardElementLink.alt = data.name;
-  cardElementLink.src = data.link;
+  cardElementTitle.textContent = data.name;
+  cardElementImage.alt = data.name;
+  cardElementImage.src = data.link;
 
   cardElementLikeButton.addEventListener("click", () => {
     cardElementLikeButton.classList.toggle("card__like-button_liked");
@@ -71,6 +82,17 @@ function getCardElement(data) {
 
   cardElementDeleteButton.addEventListener("click", () => {
     cardElement.remove();
+  });
+
+  cardElementImage.addEventListener("click", () => {
+    openModal(previewModal);
+    previewImage.alt = data.name;
+    previewImage.src = data.link;
+    previewCaption.textContent = data.name;
+  });
+
+  previewCloseButton.addEventListener("click", () => {
+    closeModal(previewModal);
   });
 
   return cardElement;
