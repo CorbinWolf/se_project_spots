@@ -56,10 +56,22 @@ function getCardElement(data) {
     .cloneNode(true);
   const cardElementName = cardElement.querySelector(".card__title");
   const cardElementLink = cardElement.querySelector(".card__image");
+  const cardElementLikeButton = cardElement.querySelector(".card__like-button");
+  const cardElementDeleteButton = cardElement.querySelector(
+    ".card__delete-button"
+  );
 
   cardElementName.textContent = data.name;
   cardElementLink.alt = data.name;
   cardElementLink.src = data.link;
+
+  cardElementLikeButton.addEventListener("click", () => {
+    cardElementLikeButton.classList.toggle("card__like-button_liked");
+  });
+
+  cardElementDeleteButton.addEventListener("click", () => {
+    cardElement.remove();
+  });
 
   return cardElement;
 }
