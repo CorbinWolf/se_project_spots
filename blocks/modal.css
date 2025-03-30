@@ -123,6 +123,7 @@
   padding: 16px 12px;
   border: 1px solid #21212166;
   border-radius: 8px;
+  outline: none;
   cursor: pointer;
   color: #212121;
   font-size: 20px;
@@ -137,6 +138,21 @@
 
 .modal__input:hover {
   border: 1px solid #212121;
+}
+
+.modal__input_type_error {
+  border: 1px solid #ff000099;
+}
+
+.modal__error {
+  color: #ff0000b3;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 500;
+}
+
+.modal__error:empty {
+  display: none;
 }
 
 .modal__submit-button {
@@ -154,6 +170,10 @@
 
 .modal__submit-button:hover {
   opacity: 0.8;
+}
+
+.modal__submit-button_disabled {
+  background-color: #21212180;
 }
 
 @media screen and (max-width: 650px) {
