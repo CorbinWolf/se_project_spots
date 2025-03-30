@@ -88,7 +88,6 @@ function getCardElement(data) {
 
   cardElementImage.addEventListener("click", () => {
     openModal(previewModal);
-    document.addEventListener("keydown", handleEscape);
     previewImage.alt = data.name;
     previewImage.src = data.link;
     previewCaption.textContent = data.name;
@@ -114,9 +113,11 @@ function setProfileForm() {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closeModal(modal) {
+  document.removeEventListener("keydown", handleEscape);
   modal.classList.remove("modal_opened");
 }
 
@@ -124,11 +125,7 @@ function submitProfileModal(evt) {
   profileName.textContent = editProfileNameInput.value;
   profileDescription.textContent = editProfileDescriptionInput.value;
   evt.target.reset();
-  toggleButtonState(
-    [editProfileNameInput, editProfileDescriptionInput],
-    editProfileSubmitButton,
-    settings
-  );
+  disableButton(editProfileSubmitButton, settings);
   closeModal(editProfileModal);
 }
 
@@ -139,11 +136,7 @@ function submitCardModal(evt) {
   };
   renderCard(inputValues);
   evt.target.reset();
-  toggleButtonState(
-    [addCardLinkInput, addCardNameInput],
-    addCardSubmitButton,
-    settings
-  );
+  disableButton(addCardSubmitButton, settings);
   closeModal(addCardModal);
 }
 
@@ -161,7 +154,6 @@ modalCloseButtons.forEach((button) => {
 modals.forEach((modal) => {
   modal.addEventListener("click", (evt) => {
     if (evt.target.classList.contains("modal_opened")) {
-      document.removeEventListener("keydown", handleEscape);
       closeModal(modal);
     }
   });
@@ -170,7 +162,6 @@ modals.forEach((modal) => {
 function handleEscape(evt) {
   modals.forEach((modal) => {
     if (evt.key === "Escape") {
-      document.removeEventListener("keydown", handleEscape);
       closeModal(modal);
     }
   });
@@ -178,13 +169,11 @@ function handleEscape(evt) {
 
 editProfileOpenButton.addEventListener("click", () => {
   openModal(editProfileModal);
-  document.addEventListener("keydown", handleEscape);
   setProfileForm();
 });
 editProfileForm.addEventListener("submit", submitProfileModal);
 
 addCardOpenButton.addEventListener("click", () => {
   openModal(addCardModal);
-  document.addEventListener("keydown", handleEscape);
 });
 addCardForm.addEventListener("submit", submitCardModal);

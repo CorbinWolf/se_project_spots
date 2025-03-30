@@ -40,12 +40,16 @@ function hasInvalidInput(inputList) {
 
 function toggleButtonState(inputList, buttonElement, config) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.disabled = true;
-    buttonElement.classList.add(config.disabledButtonClass);
+    disableButton(buttonElement, config);
   } else {
     buttonElement.disabled = false;
     buttonElement.classList.remove(config.disabledButtonClass);
   }
+}
+
+function disableButton(buttonElement, config) {
+  buttonElement.disabled = true;
+  buttonElement.classList.add(config.disabledButtonClass);
 }
 
 function resetValidation(formElement, inputList, config) {
@@ -61,6 +65,10 @@ function setEventListeners(formElement, config) {
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement, config);
+
+  formElement.addEventListener("reset", () => {
+    disableButton(buttonElement, config);
+  });
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
