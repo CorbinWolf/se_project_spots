@@ -6,19 +6,22 @@
     <meta name="description" content="Sprint 3 final project for TripleTen." />
     <meta name="keywords" content="HTML, CSS, Project" />
     <meta name="author" content="Corbin Wolf" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="icon" href="./favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spots logo" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spots logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile">
           <img
-            src="./images/avatar.jpg"
+            src="<%=require('./images/avatar.jpg')%>"
             alt="User's avatar"
             class="profile__avatar"
           />
@@ -150,7 +153,5 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/validation.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
