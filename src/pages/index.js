@@ -5,6 +5,26 @@ import {
   disableButton,
   resetValidation,
 } from "../scripts/validation.js";
+import Api from "../utils/Api.js";
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "2b803712-2776-4a6d-aa20-915c5035123d",
+    "Content-Type": "application/json",
+  },
+});
+
+api
+  .getAppInfo()
+  .then(([cards, userInfo]) => {
+    cards.forEach((card) => {
+      renderCard(card);
+    });
+    profileName.textContent = userInfo.name;
+    profileDescription.textContent = userInfo.about;
+  })
+  .catch(console.error);
 
 const initialCards = [
   {
@@ -130,11 +150,19 @@ function closeModal(modal) {
 }
 
 function submitProfileModal(evt) {
-  profileName.textContent = editProfileNameInput.value;
-  profileDescription.textContent = editProfileDescriptionInput.value;
-  evt.target.reset();
-  disableButton(editProfileSubmitButton, settings);
-  closeModal(editProfileModal);
+  api
+    .editUserInfo({
+      name: editProfileNameInput.value,
+      about: editProfileDescriptionInput.value,
+    })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+      evt.target.reset();
+      disableButton(editProfileSubmitButton, settings);
+      closeModal(editProfileModal);
+    })
+    .catch(console.error);
 }
 
 function submitCardModal(evt) {
@@ -147,10 +175,6 @@ function submitCardModal(evt) {
   disableButton(addCardSubmitButton, settings);
   closeModal(addCardModal);
 }
-
-initialCards.forEach((card) => {
-  renderCard(card);
-});
 
 modalCloseButtons.forEach((button) => {
   const currentModal = button.closest(".modal");
