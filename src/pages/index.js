@@ -59,13 +59,24 @@ const initialCards = [
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+const avatarImage = document.querySelector(".profile__avatar-image");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
+const editAvatarOpenButton = document.querySelector(".profile__avatar-button");
 const editProfileOpenButton = document.querySelector(".profile__edit-button");
 const addCardOpenButton = document.querySelector(".profile__add-button");
 
 const modalCloseButtons = document.querySelectorAll(".modal__close-button");
 const modals = document.querySelectorAll(".modal");
+
+const editAvatarForm = document.forms["edit-avatar-form"];
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
+const editAvatarImageInput = editAvatarModal.querySelector(
+  "#edit-avatar-image-input"
+);
+const editAvatarSubmitButton = editAvatarModal.querySelector(
+  "#edit-avatar-submit-button"
+);
 
 const editProfileForm = document.forms["edit-profile-form"];
 const editProfileModal = document.querySelector("#edit-profile-modal");
@@ -149,6 +160,18 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+function submitAvatarModal(evt) {
+  api
+    .editAvatarImage({ avatar: editAvatarImageInput.value })
+    .then((data) => {
+      avatarImage.src = data.avatar;
+      evt.target.reset();
+      disableButton(editAvatarSubmitButton, settings);
+      closeModal(editAvatarModal);
+    })
+    .catch(console.error);
+}
+
 function submitProfileModal(evt) {
   api
     .editUserInfo({
@@ -198,6 +221,11 @@ function handleEscape(evt) {
     }
   });
 }
+
+editAvatarOpenButton.addEventListener("click", () => {
+  openModal(editAvatarModal);
+});
+editAvatarForm.addEventListener("submit", submitAvatarModal);
 
 editProfileOpenButton.addEventListener("click", () => {
   openModal(editProfileModal);
