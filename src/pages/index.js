@@ -123,9 +123,13 @@ function getCardElement(data) {
   cardElementImage.alt = data.name;
   cardElementImage.src = data.link;
 
-  cardElementLikeButton.addEventListener("click", () => {
-    cardElementLikeButton.classList.toggle("card__like-button_liked");
-  });
+  if (data.isLiked) {
+    cardElementLikeButton.classList.add("card__like-button_liked");
+  }
+
+  cardElementLikeButton.addEventListener("click", (evt) =>
+    handleLike(evt, data._id)
+  );
 
   cardElementDeleteButton.addEventListener("click", () => {
     openDeleteCardModal(cardElement, data._id);
@@ -146,12 +150,6 @@ function renderCard(item, method = "prepend") {
   cardsList[method](cardElement);
 }
 
-function openDeleteCardModal(cardElement, cardId) {
-  selectedCard = cardElement;
-  selectedCardId = cardId;
-  openModal(deleteCardModal);
-}
-
 function setProfileForm() {
   editProfileNameInput.value = profileName.textContent;
   editProfileDescriptionInput.value = profileDescription.textContent;
@@ -162,6 +160,16 @@ function setProfileForm() {
   );
 }
 
+function handleLike(evt, id) {
+  const isLiked = evt.target.classList.contains("card__like-button_liked");
+  api
+    .changeLike(id, isLiked)
+    .then(() => {
+      evt.target.classList.toggle("card__like-button_liked");
+    })
+    .catch(console.error);
+}
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscape);
@@ -170,6 +178,12 @@ function openModal(modal) {
 function closeModal(modal) {
   document.removeEventListener("keydown", handleEscape);
   modal.classList.remove("modal_opened");
+}
+
+function openDeleteCardModal(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  openModal(deleteCardModal);
 }
 
 function submitAvatarModal(evt) {
