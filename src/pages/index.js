@@ -19,8 +19,9 @@ api
   .getAppInfo()
   .then(([cards, userInfo]) => {
     cards.forEach((card) => {
-      renderCard(card);
+      renderCard(card, "append");
     });
+    avatarImage.src = userInfo.avatar;
     profileName.textContent = userInfo.name;
     profileDescription.textContent = userInfo.about;
   })
@@ -98,6 +99,8 @@ const addCardSubmitButton = addCardModal.querySelector(
   "#add-card-submit-button"
 );
 
+const deleteCardModal = document.querySelector("#delete-card-modal");
+
 const previewModal = document.querySelector("#preview-modal");
 const previewImage = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
@@ -122,7 +125,7 @@ function getCardElement(data) {
   });
 
   cardElementDeleteButton.addEventListener("click", () => {
-    cardElement.remove();
+    openModal(deleteCardModal);
   });
 
   cardElementImage.addEventListener("click", () => {
@@ -161,6 +164,7 @@ function closeModal(modal) {
 }
 
 function submitAvatarModal(evt) {
+  evt.preventDefault();
   api
     .editAvatarImage({ avatar: editAvatarImageInput.value })
     .then((data) => {
@@ -173,6 +177,7 @@ function submitAvatarModal(evt) {
 }
 
 function submitProfileModal(evt) {
+  evt.preventDefault();
   api
     .editUserInfo({
       name: editProfileNameInput.value,
@@ -189,14 +194,23 @@ function submitProfileModal(evt) {
 }
 
 function submitCardModal(evt) {
-  const inputValues = {
-    link: addCardLinkInput.value,
-    name: addCardNameInput.value,
-  };
-  renderCard(inputValues);
-  evt.target.reset();
-  disableButton(addCardSubmitButton, settings);
-  closeModal(addCardModal);
+  evt.preventDefault();
+  api
+    .addCard({
+      link: addCardLinkInput.value,
+      name: addCardNameInput.value,
+    })
+    .then((data) => {
+      const inputValues = {
+        link: data.link,
+        name: data.name,
+      };
+      renderCard(inputValues);
+      evt.target.reset();
+      disableButton(addCardSubmitButton, settings);
+      closeModal(addCardModal);
+    })
+    .catch(console.error);
 }
 
 modalCloseButtons.forEach((button) => {

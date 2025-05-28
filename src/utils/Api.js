@@ -30,6 +30,21 @@ class Api {
     });
   }
 
+  editAvatarImage({ avatar }) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   editUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -46,12 +61,13 @@ class Api {
     });
   }
 
-  editAvatarImage({ avatar }) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
+  addCard({ link, name }) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        avatar,
+        link,
+        name,
       }),
     }).then((res) => {
       if (res.ok) {
