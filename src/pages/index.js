@@ -99,11 +99,14 @@ const addCardSubmitButton = addCardModal.querySelector(
   "#add-card-submit-button"
 );
 
+const deleteCardForm = document.forms["delete-card-form"];
 const deleteCardModal = document.querySelector("#delete-card-modal");
 
 const previewModal = document.querySelector("#preview-modal");
 const previewImage = previewModal.querySelector(".modal__image");
 const previewCaption = previewModal.querySelector(".modal__caption");
+
+let selectedCard, selectedCardId;
 
 function getCardElement(data) {
   const cardElement = cardTemplate.content
@@ -125,7 +128,7 @@ function getCardElement(data) {
   });
 
   cardElementDeleteButton.addEventListener("click", () => {
-    openModal(deleteCardModal);
+    openDeleteCardModal(cardElement, data._id);
   });
 
   cardElementImage.addEventListener("click", () => {
@@ -141,6 +144,12 @@ function getCardElement(data) {
 function renderCard(item, method = "prepend") {
   const cardElement = getCardElement(item);
   cardsList[method](cardElement);
+}
+
+function openDeleteCardModal(cardElement, cardId) {
+  selectedCard = cardElement;
+  selectedCardId = cardId;
+  openModal(deleteCardModal);
 }
 
 function setProfileForm() {
@@ -193,7 +202,7 @@ function submitProfileModal(evt) {
     .catch(console.error);
 }
 
-function submitCardModal(evt) {
+function submitAddCardModal(evt) {
   evt.preventDefault();
   api
     .addCard({
@@ -201,14 +210,21 @@ function submitCardModal(evt) {
       name: addCardNameInput.value,
     })
     .then((data) => {
-      const inputValues = {
-        link: data.link,
-        name: data.name,
-      };
-      renderCard(inputValues);
+      renderCard(data);
       evt.target.reset();
       disableButton(addCardSubmitButton, settings);
       closeModal(addCardModal);
+    })
+    .catch(console.error);
+}
+
+function submitDeleteCardModal(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteCardModal);
     })
     .catch(console.error);
 }
@@ -250,6 +266,8 @@ editProfileForm.addEventListener("submit", submitProfileModal);
 addCardOpenButton.addEventListener("click", () => {
   openModal(addCardModal);
 });
-addCardForm.addEventListener("submit", submitCardModal);
+addCardForm.addEventListener("submit", submitAddCardModal);
+
+deleteCardForm.addEventListener("submit", submitDeleteCardModal);
 
 enableValidation(settings);
