@@ -5,6 +5,7 @@ import {
   disableButton,
   resetValidation,
 } from "../scripts/validation.js";
+import { setButtonText } from "../utils/helpers.js";
 import Api from "../utils/Api.js";
 
 const api = new Api({
@@ -188,6 +189,7 @@ function openDeleteCardModal(cardElement, cardId) {
 
 function submitAvatarModal(evt) {
   evt.preventDefault();
+  setButtonText(evt.submitter, true);
   api
     .editAvatarImage({ avatar: editAvatarImageInput.value })
     .then((data) => {
@@ -196,11 +198,15 @@ function submitAvatarModal(evt) {
       disableButton(editAvatarSubmitButton, settings);
       closeModal(editAvatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(evt.submitter, false);
+    });
 }
 
 function submitProfileModal(evt) {
   evt.preventDefault();
+  setButtonText(evt.submitter, true);
   api
     .editUserInfo({
       name: editProfileNameInput.value,
@@ -213,11 +219,15 @@ function submitProfileModal(evt) {
       disableButton(editProfileSubmitButton, settings);
       closeModal(editProfileModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(evt.submitter, false);
+    });
 }
 
 function submitAddCardModal(evt) {
   evt.preventDefault();
+  setButtonText(evt.submitter, true);
   api
     .addCard({
       link: addCardLinkInput.value,
@@ -229,18 +239,25 @@ function submitAddCardModal(evt) {
       disableButton(addCardSubmitButton, settings);
       closeModal(addCardModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(evt.submitter, false);
+    });
 }
 
 function submitDeleteCardModal(evt) {
   evt.preventDefault();
+  setButtonText(evt.submitter, true, "delete", "deleting...");
   api
     .deleteCard(selectedCardId)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteCardModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      setButtonText(evt.submitter, false, "delete", "deleting...");
+    });
 }
 
 modalCloseButtons.forEach((button) => {

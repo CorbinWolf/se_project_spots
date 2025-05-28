@@ -1,5 +1,5 @@
 .page {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #fcf5e5;
   font-family: Poppins, Arial, Helvetica, sans-serif;
   color: #212121;
