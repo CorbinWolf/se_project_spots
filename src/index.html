@@ -6,22 +6,28 @@
     <meta name="description" content="Sprint 3 final project for TripleTen." />
     <meta name="keywords" content="HTML, CSS, Project" />
     <meta name="author" content="Corbin Wolf" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="icon" href="./favicon.ico" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spots logo" class="header__logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          alt="Spots logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            src="./images/avatar.jpg"
-            alt="User's avatar"
-            class="profile__avatar"
-          />
+          <div class="profile__avatar">
+            <img
+              src="<%=require('./images/avatar.jpg')%>"
+              alt="User's avatar"
+              class="profile__avatar-image"
+            />
+            <button class="profile__avatar-button" type="button"></button>
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
@@ -49,6 +55,37 @@
       <footer class="footer">
         <p class="footer__description">2023 &#169; Spots</p>
       </footer>
+      <div class="modal" id="edit-avatar-modal">
+        <div class="modal__container">
+          <div class="modal__header">
+            <h2 class="modal__title">Edit profile avatar</h2>
+            <button class="modal__close-button" type="button"></button>
+          </div>
+          <form class="modal__form" name="edit-avatar-form" novalidate>
+            <label class="modal__label">
+              Profile Picture
+              <input
+                class="modal__input"
+                type="url"
+                id="edit-avatar-image-input"
+                placeholder="Paste the link to an image"
+                required
+              />
+              <span
+                class="modal__error"
+                id="edit-avatar-image-input-error"
+              ></span>
+            </label>
+            <button
+              class="modal__button"
+              type="submit"
+              id="edit-avatar-submit-button"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
       <div class="modal" id="edit-profile-modal">
         <div class="modal__container">
           <div class="modal__header">
@@ -89,7 +126,7 @@
               ></span>
             </label>
             <button
-              class="modal__submit-button"
+              class="modal__button"
               type="submit"
               id="edit-profile-submit-button"
             >
@@ -130,7 +167,7 @@
               <span class="modal__error" id="add-card-name-input-error"></span>
             </label>
             <button
-              class="modal__submit-button"
+              class="modal__button"
               type="submit"
               id="add-card-submit-button"
             >
@@ -139,18 +176,53 @@
           </form>
         </div>
       </div>
-      <div class="modal" id="preview-modal">
-        <div class="modal__container modal__container_type_preview">
+      <div class="modal" id="delete-card-modal">
+        <div class="modal__capsule">
           <button
-            class="modal__close-button modal__close-button_type_preview"
+            class="modal__close-button modal__close-button_type_floating"
             type="button"
           ></button>
-          <img class="modal__image" src="" alt="" />
-          <h2 class="modal__caption"></h2>
+          <div class="modal__container modal__container_type_delete">
+            <div class="modal__header modal__header_type_delete">
+              <h2 class="modal__title modal__title_type_delete">
+                Are you sure you want to delete this image?
+              </h2>
+            </div>
+            <form
+              class="modal__form modal__form_type_delete"
+              name="delete-card-form"
+              novalidate
+            >
+              <button
+                class="modal__button modal__button_type_delete"
+                type="submit"
+                id="delete-card-submit-button"
+              >
+                Delete
+              </button>
+              <button
+                class="modal__button modal__button_type_cancel"
+                type="button"
+                id="delete-card-cancel-button"
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal" id="preview-modal">
+        <div class="modal__capsule">
+          <button
+            class="modal__close-button modal__close-button_type_floating"
+            type="button"
+          ></button>
+          <div class="modal__container modal__container_type_preview">
+            <img class="modal__image" src="" alt="" />
+            <h2 class="modal__caption"></h2>
+          </div>
         </div>
       </div>
     </div>
-    <script src="./scripts/validation.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
