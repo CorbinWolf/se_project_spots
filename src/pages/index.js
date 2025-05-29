@@ -102,6 +102,9 @@ const addCardSubmitButton = addCardModal.querySelector(
 
 const deleteCardForm = document.forms["delete-card-form"];
 const deleteCardModal = document.querySelector("#delete-card-modal");
+const deleteCardCancelButtons = document.querySelectorAll(
+  ".modal__button_type_cancel"
+);
 
 const previewModal = document.querySelector("#preview-modal");
 const previewImage = previewModal.querySelector(".modal__image");
@@ -128,9 +131,9 @@ function getCardElement(data) {
     cardElementLikeButton.classList.add("card__like-button_liked");
   }
 
-  cardElementLikeButton.addEventListener("click", (evt) =>
-    handleLike(evt, data._id)
-  );
+  cardElementLikeButton.addEventListener("click", (evt) => {
+    handleLike(evt, data._id);
+  });
 
   cardElementDeleteButton.addEventListener("click", () => {
     openDeleteCardModal(cardElement, data._id);
@@ -185,6 +188,13 @@ function openDeleteCardModal(cardElement, cardId) {
   selectedCard = cardElement;
   selectedCardId = cardId;
   openModal(deleteCardModal);
+}
+
+function handleCloseButtons(button) {
+  const currentModal = button.closest(".modal");
+  button.addEventListener("click", () => {
+    closeModal(currentModal);
+  });
 }
 
 function submitAvatarModal(evt) {
@@ -247,7 +257,7 @@ function submitAddCardModal(evt) {
 
 function submitDeleteCardModal(evt) {
   evt.preventDefault();
-  setButtonText(evt.submitter, true, "delete", "deleting...");
+  setButtonText(evt.submitter, true, "Delete", "Deleting...");
   api
     .deleteCard(selectedCardId)
     .then(() => {
@@ -256,15 +266,16 @@ function submitDeleteCardModal(evt) {
     })
     .catch(console.error)
     .finally(() => {
-      setButtonText(evt.submitter, false, "delete", "deleting...");
+      setButtonText(evt.submitter, false, "Delete", "Deleting...");
     });
 }
 
 modalCloseButtons.forEach((button) => {
-  const currentModal = button.closest(".modal");
-  button.addEventListener("click", () => {
-    closeModal(currentModal);
-  });
+  handleCloseButtons(button);
+});
+
+deleteCardCancelButtons.forEach((button) => {
+  handleCloseButtons(button);
 });
 
 modals.forEach((modal) => {
